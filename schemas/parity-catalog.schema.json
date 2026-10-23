@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "parity-catalog.schema.json",
+  "title": "Parity catalog",
+  "description": "Phase 4 output: diff findings between the legacy export and the rebuild.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["domain", "item", "legacySource", "rebuildSource", "status", "priority"],
+    "additionalProperties": false,
+    "properties": {
+      "domain": { "type": "string", "description": "e.g. dashboards, forms, documents, auth, api" },
+      "item": { "type": "string", "description": "The feature, field, column, rule or operation compared" },
+      "legacySource": { "type": "string", "description": "Citation into the export, or empty for 'extra'" },
+      "rebuildSource": { "type": "string", "description": "file:line in the rebuild, or empty for 'gap'" },
+      "status": { "enum": ["match", "gap", "extra"] },
+      "priority": { "enum": ["P1", "P2", "P3"], "description": "Only meaningful for gap and extra; use P3 for match" },
+      "notes": { "type": "string" }
+    }
+  }
+}

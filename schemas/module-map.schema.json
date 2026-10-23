@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "module-map.schema.json",
+  "title": "Module map",
+  "description": "Phase 1 output: one row per exported module, mapping file to module id to screen to audience.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "name", "title", "type", "file", "status", "source"],
+    "additionalProperties": false,
+    "properties": {
+      "id": { "type": "string", "description": "Unqork module id (24 hex chars) or empty string if unknown", "pattern": "^([0-9a-f]{24})?$" },
+      "name": { "type": "string" },
+      "title": { "type": "string", "description": "Human title, from manifest.json where available" },
+      "type": { "type": "string", "description": "Module type as exported, e.g. ui, api, resource" },
+      "file": { "type": "string", "description": "Path of the module JSON relative to the export root" },
+      "screen": { "type": "string", "description": "Screen or route this module renders, if any" },
+      "visibleTo": { "type": "array", "items": { "type": "string" }, "description": "Role ids that can reach it" },
+      "status": { "enum": ["active", "junk", "deprecated"] },
+      "source": { "type": "string", "description": "Citation: file path, or 'inferred: <why>'" }
+    }
+  }
+}

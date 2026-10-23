@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "page-api-map.schema.json",
+  "title": "Page to API map",
+  "description": "Phase 1 output: which legacy page calls which operations.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["page", "operations", "source"],
+    "additionalProperties": false,
+    "properties": {
+      "page": { "type": "string", "description": "Module title or id of the page" },
+      "operations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["method", "path"],
+          "additionalProperties": false,
+          "properties": {
+            "method": { "enum": ["GET", "POST", "PUT", "PATCH", "DELETE"] },
+            "path": { "type": "string" },
+            "service": { "type": "string", "description": "Service alias from the registry; omit for the domain service" },
+            "provisional": { "type": "boolean", "description": "True if inferred rather than transcribed" }
+          }
+        }
+      },
+      "source": { "type": "string", "description": "Citation: module JSON path (and integrator key)" }
+    }
+  }
+}

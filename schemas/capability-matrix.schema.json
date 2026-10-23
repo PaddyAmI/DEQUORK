@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "capability-matrix.schema.json",
+  "title": "Capability matrix",
+  "description": "Phase 1 output: role x status x action permissions, with a citation per row.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["role", "status", "action", "allowed", "source"],
+    "additionalProperties": false,
+    "properties": {
+      "role": { "type": "string", "description": "Role id exactly as the backend sends it (record misspellings as-is)" },
+      "status": { "type": "string", "description": "Record status code, or '*' for any" },
+      "action": { "type": "string", "description": "Action verb, tab, button or permission name" },
+      "allowed": { "type": "boolean" },
+      "source": {
+        "type": "object",
+        "required": ["file", "kind"],
+        "additionalProperties": false,
+        "properties": {
+          "file": { "type": "string", "description": "Module JSON path relative to the export root" },
+          "moduleId": { "type": "string" },
+          "component": { "type": "string", "description": "Component key or decision-table name" },
+          "kind": { "enum": ["decision-table", "component-permission", "inferred"] },
+          "rowCount": { "type": "integer", "minimum": 0, "description": "Legacy table row count, for count-assertion tests" }
+        }
+      }
+    }
+  }
+}
